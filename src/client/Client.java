@@ -31,7 +31,7 @@ class Client {
         try {
             portNum = br.readLine();
             if (portNum.length() == 0) {
-                portNum = "7";
+                portNum = "8055";
             }
         }catch (IOException e) {
             e.printStackTrace();
