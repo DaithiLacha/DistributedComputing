@@ -1,7 +1,5 @@
 package client;
 
-import server.MyStreamSocket;
-
 import java.net.*;
 import java.io.*;
 
@@ -12,29 +10,25 @@ import java.io.*;
  * @author M. L. Liu
  */
 
-
-public class EchoClientHelper2 {
-
-    static final String endMessage = ".";
-    private MyStreamSocket mySocket;
-    private InetAddress serverHost;
-    private int serverPort;
+class EchoClientHelper2 {
+    private static final String endMessage = ".";
+    private ClientStreamSocket mySocket;
 
     EchoClientHelper2(String hostName, String portNum) throws IOException {
-        this.serverHost = InetAddress.getByName(hostName);
-        this.serverPort = Integer.parseInt(portNum);
-        this.mySocket = new MyStreamSocket(this.serverHost, this.serverPort);
+        InetAddress serverHost = InetAddress.getByName(hostName);
+        int serverPort = Integer.parseInt(portNum);
+        this.mySocket = new ClientStreamSocket(serverHost, serverPort);
         System.out.println("Connection request made");
     }
 
-    public String getEcho(String message) throws IOException {
+    String getEcho(String message) throws IOException {
         String echo = "";
         mySocket.sendMessage(message);
         echo = mySocket.receiveMessage();
         return echo;
     }
 
-    public void done() throws IOException {
+    void done() throws IOException {
         mySocket.sendMessage(endMessage);
         mySocket.close();
     }

@@ -11,16 +11,15 @@ import java.net.*;
  * @author M. L. Liu
  */
 
-public class Server {
-    public static void main(String[] args) {
-        int serverPort = 5417;
-
+class Server {
+    void deployServer(){
         try {
-            ServerSocket myConnectionSocket = new ServerSocket(serverPort);
+            final int SERVER_PORT = 8055;
+            ServerSocket myConnectionSocket = new ServerSocket(SERVER_PORT);
             System.out.println("Echo server ready.");
             while (true) {
                 System.out.println("Waiting for a connection.");
-                MyStreamSocket myDataSocket = new MyStreamSocket(myConnectionSocket.accept());
+                ServerStreamSocket myDataSocket = new ServerStreamSocket(myConnectionSocket.accept());
                 System.out.println("connection accepted");
                 Thread theThread = new Thread(new ServerThread(myDataSocket));
                 theThread.start();

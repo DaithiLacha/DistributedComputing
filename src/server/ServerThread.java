@@ -9,9 +9,9 @@ package server;
 
 public class ServerThread implements Runnable {
     private static final String TERMINATION_MESSAGE = "end";
-    private MyStreamSocket myDataSocket;
+    private ServerStreamSocket myDataSocket;
 
-    ServerThread(MyStreamSocket myDataSocket) {
+    ServerThread(ServerStreamSocket myDataSocket) {
         this.myDataSocket = myDataSocket;
     }
 
