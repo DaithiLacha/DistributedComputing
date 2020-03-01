@@ -1,13 +1,16 @@
 package client;
 
+import server.Server;
+
 import java.io.*;
+import java.util.Scanner;
 
 /**
  * This module contains the presentaton logic of an Echo Client.
  *
  * @author M. L. Liu
  */
-class Client {
+public class Client {
     private static final String TERMINATION_MESSAGE = "end";
     private InputStreamReader is = new InputStreamReader(System.in);
     private BufferedReader br = new BufferedReader(is);
@@ -34,7 +37,7 @@ class Client {
             if (portNum.length() == 0) {
                 portNum = "8055";
             }
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return portNum;
@@ -46,8 +49,26 @@ class Client {
             String portNum = retrievePortNumber();
             ClientHelper helper = new ClientHelper(hostName, portNum);
             boolean isTerminated = false;
-            String message, echo;
-            while(!isTerminated) {
+            boolean isLoggedIn = false;
+            String message, echo, username, password;
+            Scanner input = new Scanner(System.in);
+            System.out.println("Enter Username: ");
+            username = input.nextLine();
+            System.out.println("Enter Password: ");
+            password = input.nextLine();
+
+            while (!isLoggedIn) {
+                if (login(username, password)) {
+                    isLoggedIn = true;
+                } else {
+                    System.out.println("Incorrect Login Details. Re-enter Username: ");
+                    username = input.nextLine();
+                    System.out.println("Enter Password: ");
+                    password = input.nextLine();
+                }
+            }
+
+            while (!isTerminated) {
                 System.out.println("Enter a line to receive an echo from the server. Type 'end' to quit.");
                 message = br.readLine();
                 if ((message.trim()).equals(TERMINATION_MESSAGE)) {
@@ -58,8 +79,12 @@ class Client {
                     System.out.println(echo);
                 }
             }
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static boolean login(String username, String password) {
+        return Server.credentialsAreValid(username, password);
     }
 }
