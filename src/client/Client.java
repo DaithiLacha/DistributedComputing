@@ -13,12 +13,13 @@ class Client {
     private BufferedReader br = new BufferedReader(is);
 
     private String retrieveHostName() {
-        System.out.println("Welcome to the Echo client.\nWhat is the name of the server host?");
+        System.out.println("Welcome to the Echo client.\nEnter server host name?");
         String hostName = "";
         try {
             hostName = br.readLine();
-            if (hostName.length() == 0)
+            if (hostName.length() == 0) {
                 hostName = "localhost";
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -26,7 +27,7 @@ class Client {
     }
 
     private String retrievePortNumber() {
-        System.out.println("What is the port number of the server host?");
+        System.out.println("Enter server port number: ");
         String portNum = "";
         try {
             portNum = br.readLine();
@@ -43,21 +44,21 @@ class Client {
         try {
             String hostName = retrieveHostName();
             String portNum = retrievePortNumber();
-            EchoClientHelper2 helper = new EchoClientHelper2(hostName, portNum);
-            boolean done = false;
+            ClientHelper helper = new ClientHelper(hostName, portNum);
+            boolean isTerminated = false;
             String message, echo;
-            while (!done) {
-                System.out.println("Enter a line to receive an echo from the server, or a single period to quit.");
+            while(!isTerminated) {
+                System.out.println("Enter a line to receive an echo from the server. Type 'end' to quit.");
                 message = br.readLine();
                 if ((message.trim()).equals(TERMINATION_MESSAGE)) {
-                    done = true;
+                    isTerminated = true;
                     helper.done();
                 } else {
                     echo = helper.getEcho(message);
                     System.out.println(echo);
                 }
             }
-        } catch (Exception ex) {
+        } catch(Exception ex) {
             ex.printStackTrace();
         }
     }

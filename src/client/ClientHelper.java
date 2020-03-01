@@ -10,11 +10,11 @@ import java.io.*;
  * @author M. L. Liu
  */
 
-class EchoClientHelper2 {
-    private static final String endMessage = ".";
+class ClientHelper {
+    private static final String TERMINATION_MESSAGE = "end";
     private ClientStreamSocket mySocket;
 
-    EchoClientHelper2(String hostName, String portNum) throws IOException {
+    ClientHelper(String hostName, String portNum) throws IOException {
         InetAddress serverHost = InetAddress.getByName(hostName);
         int serverPort = Integer.parseInt(portNum);
         this.mySocket = new ClientStreamSocket(serverHost, serverPort);
@@ -22,14 +22,14 @@ class EchoClientHelper2 {
     }
 
     String getEcho(String message) throws IOException {
-        String echo = "";
+        String echo;
         mySocket.sendMessage(message);
         echo = mySocket.receiveMessage();
         return echo;
     }
 
     void done() throws IOException {
-        mySocket.sendMessage(endMessage);
+        mySocket.sendMessage(TERMINATION_MESSAGE);
         mySocket.close();
     }
 }

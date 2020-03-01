@@ -17,7 +17,7 @@ class Server {
             final int SERVER_PORT = 8055;
             ServerSocket myConnectionSocket = new ServerSocket(SERVER_PORT);
             System.out.println("Echo server ready.");
-            while (true) {
+            while(true) {
                 System.out.println("Waiting for a connection.");
                 ServerStreamSocket myDataSocket = new ServerStreamSocket(myConnectionSocket.accept());
                 System.out.println("connection accepted");
