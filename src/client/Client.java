@@ -68,6 +68,8 @@ public class Client {
                 }
             }
 
+            Server.createUser();
+
             while (!isTerminated) {
                 System.out.println("Enter a line to receive an echo from the server. Type 'end' to quit.");
                 message = br.readLine();

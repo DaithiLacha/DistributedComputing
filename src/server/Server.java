@@ -63,6 +63,22 @@ public class Server {
                         new FileOutputStream("Users.txt", true), StandardCharsets.UTF_8))) {
                     writer.newLine();
                     writer.append(username).append(": ").append(password);
+                    String directoryName = username;
+                    String fileName = username + ".txt";
+                    File directory = new File(directoryName);
+                    if(!directory.exists()) {
+                        directory.mkdir();
+                    }
+                    File file = new File(directoryName + "/" + fileName);
+                    try {
+                        FileWriter fw = new FileWriter(file.getAbsoluteFile());
+                        BufferedWriter bw = new BufferedWriter(fw);
+                        bw.write(username);
+                        bw.close();
+                    }catch (IOException e) {
+                        e.printStackTrace();
+                        System.exit(-1);
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
