@@ -17,6 +17,7 @@ import java.util.Scanner;
  */
 
 public class Server {
+    public static String loggedInUser = "";
     void deployServer(){
         try {
             final int SERVER_PORT = 8055;
@@ -40,6 +41,7 @@ public class Server {
             String line;
             while ((line = br.readLine()) != null) {
                 if (username.equals(line.substring(0, line.indexOf(':'))) && password.equals(line.substring(line.indexOf(':') + 2))) {
+                    loggedInUser = username;
                     return true;
                 }
             }
@@ -73,7 +75,6 @@ public class Server {
                     try {
                         FileWriter fw = new FileWriter(file.getAbsoluteFile());
                         BufferedWriter bw = new BufferedWriter(fw);
-                        bw.write(username);
                         bw.close();
                     }catch (IOException e) {
                         e.printStackTrace();

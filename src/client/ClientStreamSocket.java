@@ -1,8 +1,11 @@
 package client;
 
+import server.Server;
+
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 class ClientStreamSocket {
     private Socket socket;
@@ -27,6 +30,16 @@ class ClientStreamSocket {
 
     void sendMessage(String message) throws IOException {
         output.print(message + "\n");
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Server.loggedInUser + "/" + Server.loggedInUser + ".txt", true), StandardCharsets.UTF_8))) {
+            bw.newLine();
+            bw.append(message);
+            bw.newLine();
+            bw.append("=====================================================================================");
+            bw.newLine();
+        }catch (IOException e) {
+            e.printStackTrace();
+            System.exit(-1);
+        }
         output.flush();
     }
 
