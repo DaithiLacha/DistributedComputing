@@ -22,10 +22,10 @@ public class ClientHelper {
     }
 
     public String helperSendRequest(String message) throws IOException {
-        String echo;
+        String response;
         mySocket.socketSendRequest(message);
-        echo = mySocket.socketReceiveRequest();
-        return echo;
+        response = mySocket.socketReceiveRequest();
+        return response;
     }
 
     public void done() throws IOException {

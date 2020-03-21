@@ -3,7 +3,8 @@ package clientGUI;
 import javax.swing.*;
 import client.*;
 
-import java.io.IOException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ConnectionScreen extends JFrame {
     private JLabel lblMain;
@@ -21,13 +22,17 @@ public class ConnectionScreen extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
 
-        btnSubmit.addActionListener(e -> {
-            Client client = new Client();
-            client.runClient(txtHostName.getText(), txtPortNo.getText());
-            LoginScreen loginScreen = new LoginScreen();
-            loginScreen.setVisible(true);
-            this.setVisible(false);
-            this.dispose();
+        btnSubmit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                Client client = new Client();
+                client.runClient(txtHostName.getText(), txtPortNo.getText());
+                LoginOrCreateUserScreen gui = new LoginOrCreateUserScreen();
+                gui.setVisible(true);
+                ConnectionScreen.super.setVisible(false);
+                ConnectionScreen.super.dispose();
+            }
         });
     }
 

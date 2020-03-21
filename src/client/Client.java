@@ -70,8 +70,8 @@ public class Client {
         }
     }
 
-    public static String login(protocol.Protocol proto, String username, String password) {
-        String clientRequest = "501; " + proto + "; " + username + "; " + password;
+    public static String createUser(protocol.Protocol proto, String username, String password) {
+        String clientRequest = "601;" + proto + ";" + username + ";" + password;
         String serverResponse = "";
 
         try {
@@ -80,6 +80,17 @@ public class Client {
             e.printStackTrace();
         }
         return serverResponse;
-//        return "502: Login Successful";
+    }
+
+    public static String login(protocol.Protocol proto, String username, String password) {
+        String clientRequest = "501;" + proto + ";" + username + ";" + password;
+        String serverResponse = "";
+
+        try {
+            serverResponse = clientHelper.helperSendRequest(clientRequest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return serverResponse;
     }
 }

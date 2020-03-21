@@ -27,10 +27,16 @@ public class LoginScreen extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                if(txtUsername.getText().length() == 0) {
+                    txtUsername.setText(" ");
+                }
+                if(txtPassword.getPassword().length == 0) {
+                    txtPassword.setText(" ");
+                }
                 String response = Client.login(Protocol.LOGIN, txtUsername.getText(), new String(txtPassword.getPassword()));
-                if(response.equals("502: Login Successful")) {
+                if(response.equals("502: " + Protocol.LOGIN_SUCCESS)) {
                     JOptionPane.showMessageDialog(null, "Welcome: " + txtUsername.getText(),
-                            "Login Successful", JOptionPane.INFORMATION_MESSAGE);
+                            "502: " + Protocol.LOGIN_SUCCESS, JOptionPane.INFORMATION_MESSAGE);
                     loggedInUser = txtUsername.getText();
                     SelectOptionScreen selectOptionScreen = new SelectOptionScreen();
                     selectOptionScreen.setVisible(true);
@@ -38,16 +44,11 @@ public class LoginScreen extends JFrame{
                     LoginScreen.super.dispose();
                 }else {
                     JOptionPane.showMessageDialog(null, "Invalid Details Entered",
-                            "Login Failed", JOptionPane.ERROR_MESSAGE);
+                            "503: " + Protocol.LOGIN_FAILURE, JOptionPane.ERROR_MESSAGE);
                     txtUsername.setText("");
                     txtPassword.setText("");
                 }
             }
         });
-    }
-
-    public static void main(String[] args) {
-        LoginScreen gui = new LoginScreen();
-        gui.setVisible(true);
     }
 }

@@ -1,8 +1,11 @@
 package clientGUI;
 
+import server.Server;
+
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class SelectOptionScreen extends JFrame{
     private JButton btnUpload;
@@ -23,6 +26,10 @@ public class SelectOptionScreen extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                UploadMessageScreen uploadMessageScreen = new UploadMessageScreen();
+                uploadMessageScreen.setVisible(true);
+                SelectOptionScreen.super.setVisible(false);
+                SelectOptionScreen.super.dispose();
             }
         });
 
@@ -30,6 +37,12 @@ public class SelectOptionScreen extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                ProcessBuilder pb = new ProcessBuilder("Notepad.exe", "UserMessages/" + Server.loggedInUser + ".txt");
+                try {
+                    pb.start();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 
@@ -40,10 +53,5 @@ public class SelectOptionScreen extends JFrame{
                 System.exit(-1);
             }
         });
-    }
-
-    public static void main(String[] args) {
-        SelectOptionScreen gui = new SelectOptionScreen();
-        gui.setVisible(true);
     }
 }

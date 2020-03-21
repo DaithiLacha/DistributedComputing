@@ -1,6 +1,8 @@
 package clientGUI;
 
 import javax.swing.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class UploadMessageScreen extends JFrame {
     private JTextArea txtMessage;
@@ -16,10 +18,11 @@ public class UploadMessageScreen extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
 
-    }
-
-    public static void main(String[] args) {
-        UploadMessageScreen gui = new UploadMessageScreen();
-        gui.setVisible(true);
+        btnUpload.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
     }
 }
