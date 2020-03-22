@@ -17,13 +17,13 @@ import java.util.List;
 
 public class ServerThread implements Runnable {
     private ServerStreamSocket myDataSocket;
+    private boolean isSessionRunning = true;
 
     ServerThread(ServerStreamSocket myDataSocket) {
         this.myDataSocket = myDataSocket;
     }
 
     public void run() {
-        boolean isSessionRunning = true;
         String message;
         try {
             while(isSessionRunning) {
@@ -193,6 +193,18 @@ public class ServerThread implements Runnable {
         }
     }
 
+    private void logOffServerSide(List<String> messageType) throws IOException {
+        String username = messageType.get(2);
+        Server.loggedInUsers.remove(username);
+
+        try {
+            myDataSocket.close();
+        } catch (IOException e) {
+            myDataSocket.sendResponse("903: " + Protocol.LOGOFF_FAILURE);
+        }
+        isSessionRunning = false;
+    }
+
     private void determineMessageType(String message) {
         List<String> messageType = Arrays.asList(message.split(";"));
         switch (messageType.get(1)) {
@@ -211,7 +223,11 @@ public class ServerThread implements Runnable {
                 uploadMessagesServerSide(messageType);
                 return;
             case "LOGOFF":
-
+                try {
+                    logOffServerSide(messageType);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
         }
     }
 }

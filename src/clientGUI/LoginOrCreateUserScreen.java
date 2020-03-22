@@ -16,7 +16,6 @@ public class LoginOrCreateUserScreen extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
 
-
         btnLogin.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -27,7 +26,6 @@ public class LoginOrCreateUserScreen extends JFrame {
                 LoginOrCreateUserScreen.super.dispose();
             }
         });
-
 
         btnCreateUser.addMouseListener(new MouseAdapter() {
             @Override

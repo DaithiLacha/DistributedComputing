@@ -25,12 +25,13 @@ public class UploadMessageScreen extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                String serverResponse = Client.uploadMessage(Protocol.UPLOAD, UploadMessageScreen.super.getTitle(), txtMessage.getText());
+                String serverResponse = Client.uploadMessageRequest(Protocol.UPLOAD, UploadMessageScreen.super.getTitle(), txtMessage.getText());
                 if(serverResponse.equals("802: " + Protocol.UPLOAD_SUCCESS)) {
                     JOptionPane.showMessageDialog(null, "Message has been uploaded", serverResponse, JOptionPane.INFORMATION_MESSAGE);
                 }else {
                     JOptionPane.showMessageDialog(null, "Message failed to upload", serverResponse, JOptionPane.ERROR_MESSAGE);
                 }
+                txtMessage.setText("");
             }
         });
         btnBack.addMouseListener(new MouseAdapter() {

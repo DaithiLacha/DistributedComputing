@@ -11,7 +11,6 @@ import java.io.*;
  */
 
 public class ClientHelper {
-    private static final String TERMINATION_MESSAGE = "end";
     private static ClientStreamSocket mySocket;
 
     ClientHelper(String hostName, String portNum) throws IOException {
@@ -26,10 +25,5 @@ public class ClientHelper {
         mySocket.socketSendRequest(message);
         response = mySocket.ReceiveResponse();
         return response;
-    }
-
-    public void done() throws IOException {
-        mySocket.socketSendRequest(TERMINATION_MESSAGE);
-        mySocket.close();
     }
 }

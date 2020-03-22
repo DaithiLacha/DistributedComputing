@@ -1,5 +1,7 @@
 package server;
 
+import protocol.Protocol;
+
 import java.net.*;
 import java.io.*;
 
@@ -31,6 +33,7 @@ public class ServerStreamSocket extends Socket {
     }
 
     public void close() throws IOException {
+        sendResponse("902: " + Protocol.LOGOFF_SUCCESS);
         socket.close();
     }
 }

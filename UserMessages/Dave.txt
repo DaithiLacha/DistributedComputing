@@ -7,3 +7,6 @@ test
 =====================================================================================
 Dave's 3rd Test
 =====================================================================================
+=====================================================================================
+This a message created to test the upload functionality. I am also testing that the 188 character is enforced on the message when it is being saved to the User's text file. God I hope this
+=====================================================================================

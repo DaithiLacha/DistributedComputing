@@ -32,7 +32,7 @@ public class CreateUserScreen extends JFrame {
                 String pass = new String(txtPassword.getPassword());
                 String confirm = new String(txtConfirm.getPassword());
                 if(pass.equals(confirm)) {
-                    String serverResponse = Client.createUser(Protocol.CREATE_USER, txtUserName.getText(), pass);
+                    String serverResponse = Client.createUserRequest(Protocol.CREATE_USER, txtUserName.getText(), pass);
                     if(serverResponse.equals("603: " + Protocol.CREATE_USER_FAILURE)) {
                         JOptionPane.showMessageDialog(null, "Username already exists in the system please choose another",
                                 serverResponse, JOptionPane.ERROR_MESSAGE);
@@ -49,19 +49,10 @@ public class CreateUserScreen extends JFrame {
             }
         });
 
-
         btnBack.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-            }
-        });
-        btnBack.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                CreateUserScreen.super.setVisible(false);
-
             }
         });
     }

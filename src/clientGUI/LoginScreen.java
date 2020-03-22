@@ -26,28 +26,33 @@ public class LoginScreen extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                String response;
                 if(txtUsername.getText().length() == 0) {
-                    txtUsername.setText(" ");
-                }
-                if(txtPassword.getPassword().length == 0) {
-                    txtPassword.setText(" ");
-                }
-                String response = Client.login(Protocol.LOGIN, txtUsername.getText(), new String(txtPassword.getPassword()));
-                if(response.equals("502: " + Protocol.LOGIN_SUCCESS)) {
-                    JOptionPane.showMessageDialog(null, "Welcome: " + txtUsername.getText(),
-                            "502: " + Protocol.LOGIN_SUCCESS, JOptionPane.INFORMATION_MESSAGE);
-                    SelectOptionScreen selectOptionScreen = new SelectOptionScreen();
-                    selectOptionScreen.setVisible(true);
-                    selectOptionScreen.setTitle(txtUsername.getText());
-                    LoginScreen.super.setVisible(false);
-                    LoginScreen.super.dispose();
+                    response = Client.loginRequest(Protocol.LOGIN, " ", new String(txtPassword.getPassword()));
+                }else if(txtPassword.getPassword().length == 0) {
+                    response = Client.loginRequest(Protocol.LOGIN, txtUsername.getText(), " ");
                 }else {
-                    JOptionPane.showMessageDialog(null, "Invalid Details Entered",
-                            "503: " + Protocol.LOGIN_FAILURE, JOptionPane.ERROR_MESSAGE);
-                    txtUsername.setText("");
-                    txtPassword.setText("");
+                    response = Client.loginRequest(Protocol.LOGIN, txtUsername.getText(), new String(txtPassword.getPassword()));
                 }
+                loginResponseGUI(response);
             }
         });
+    }
+
+    private void loginResponseGUI(String response) {
+        if(response.equals("502: " + Protocol.LOGIN_SUCCESS)) {
+            JOptionPane.showMessageDialog(null, "Welcome: " + txtUsername.getText(),
+                    "502: " + Protocol.LOGIN_SUCCESS, JOptionPane.INFORMATION_MESSAGE);
+            SelectOptionScreen selectOptionScreen = new SelectOptionScreen();
+            selectOptionScreen.setVisible(true);
+            selectOptionScreen.setTitle(txtUsername.getText());
+            LoginScreen.super.setVisible(false);
+            LoginScreen.super.dispose();
+        }else {
+            JOptionPane.showMessageDialog(null, "Invalid Details Entered",
+                    "503: " + Protocol.LOGIN_FAILURE, JOptionPane.ERROR_MESSAGE);
+            txtUsername.setText("");
+            txtPassword.setText("");
+        }
     }
 }

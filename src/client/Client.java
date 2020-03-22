@@ -1,7 +1,6 @@
 package client;
 
 import java.io.*;
-import java.util.Scanner;
 
 /**
  * This module contains the presentation logic of an Echo Client.
@@ -9,9 +8,6 @@ import java.util.Scanner;
  * @author M. L. Liu
  */
 public class Client {
-    private static final String TERMINATION_MESSAGE = "end";
-    private InputStreamReader is = new InputStreamReader(System.in);
-    private BufferedReader br = new BufferedReader(is);
     private static ClientHelper clientHelper;
 
     private String setHostName(String host) {
@@ -38,7 +34,7 @@ public class Client {
         }
     }
 
-    public static String createUser(protocol.Protocol proto, String username, String password) {
+    public static String createUserRequest(protocol.Protocol proto, String username, String password) {
         String clientRequest = "601;" + proto + ";" + username + ";" + password;
         String serverResponse = "";
 
@@ -50,7 +46,7 @@ public class Client {
         return serverResponse;
     }
 
-    public static String login(protocol.Protocol proto, String username, String password) {
+    public static String loginRequest(protocol.Protocol proto, String username, String password) {
         String clientRequest = "501;" + proto + ";" + username + ";" + password;
         String serverResponse = "";
 
@@ -62,7 +58,7 @@ public class Client {
         return serverResponse;
     }
 
-    public static String downloadMessages(protocol.Protocol proto, String username) {
+    public static String downloadMessagesRequest(protocol.Protocol proto, String username) {
         String clientRequest = "701;" + proto + ";" + username;
         String serverResponse = "";
 
@@ -74,8 +70,20 @@ public class Client {
         return serverResponse;
     }
 
-    public static String uploadMessage(protocol.Protocol proto, String username, String message) {
+    public static String uploadMessageRequest(protocol.Protocol proto, String username, String message) {
         String clientRequest = "801;" + proto + ";" + username + ";" + message;
+        String serverResponse = "";
+
+        try {
+            serverResponse = clientHelper.helperSendRequest(clientRequest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return serverResponse;
+    }
+
+    public static String logOffRequest(protocol.Protocol proto, String username) {
+        String clientRequest = "901;" + proto + ";" + username;
         String serverResponse = "";
 
         try {

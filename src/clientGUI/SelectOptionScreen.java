@@ -1,6 +1,7 @@
 package clientGUI;
 
 import client.Client;
+import client.ClientHelper;
 import protocol.Protocol;
 
 import javax.swing.*;
@@ -38,7 +39,7 @@ public class SelectOptionScreen extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                String serverResponse = Client.downloadMessages(Protocol.DOWNLOAD, SelectOptionScreen.super.getTitle());
+                String serverResponse = Client.downloadMessagesRequest(Protocol.DOWNLOAD, SelectOptionScreen.super.getTitle());
                 if(serverResponse.equals("702: " + Protocol.DOWNLOAD_SUCCESS)) {
                     JOptionPane.showMessageDialog(null, "Download Successful", serverResponse, JOptionPane.INFORMATION_MESSAGE);
                 }else {
@@ -51,7 +52,18 @@ public class SelectOptionScreen extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                System.exit(-1);
+                String serverResponse = Client.logOffRequest(Protocol.LOGOFF, SelectOptionScreen.super.getTitle());
+                if(serverResponse.equals("902: " + Protocol.LOGOFF_SUCCESS)) {
+                    JOptionPane.showMessageDialog(null, SelectOptionScreen.super.getTitle() + " has been logged off",
+                            serverResponse, JOptionPane.INFORMATION_MESSAGE);
+                }else {
+                    JOptionPane.showMessageDialog(null, "There was an error in logging off the user",
+                            serverResponse, JOptionPane.ERROR_MESSAGE);
+                }
+                SelectOptionScreen.super.setVisible(false);
+                SelectOptionScreen.super.dispose();
+                ConnectionScreen connectionScreen = new ConnectionScreen();
+                connectionScreen.setVisible(true);
             }
         });
     }
