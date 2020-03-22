@@ -1,7 +1,6 @@
 package clientGUI;
 
 import client.Client;
-import client.ClientHelper;
 import protocol.Protocol;
 
 import javax.swing.*;
@@ -40,11 +39,7 @@ public class SelectOptionScreen extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 String serverResponse = Client.downloadMessagesRequest(Protocol.DOWNLOAD, SelectOptionScreen.super.getTitle());
-                if(serverResponse.equals("702: " + Protocol.DOWNLOAD_SUCCESS)) {
-                    JOptionPane.showMessageDialog(null, "Download Successful", serverResponse, JOptionPane.INFORMATION_MESSAGE);
-                }else {
-                    JOptionPane.showMessageDialog(null, "Download UnSuccessful", serverResponse, JOptionPane.ERROR_MESSAGE);
-                }
+                downloadGUI(serverResponse);
             }
         });
 
@@ -53,18 +48,32 @@ public class SelectOptionScreen extends JFrame{
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 String serverResponse = Client.logOffRequest(Protocol.LOGOFF, SelectOptionScreen.super.getTitle());
-                if(serverResponse.equals("902: " + Protocol.LOGOFF_SUCCESS)) {
-                    JOptionPane.showMessageDialog(null, SelectOptionScreen.super.getTitle() + " has been logged off",
-                            serverResponse, JOptionPane.INFORMATION_MESSAGE);
-                }else {
-                    JOptionPane.showMessageDialog(null, "There was an error in logging off the user",
-                            serverResponse, JOptionPane.ERROR_MESSAGE);
-                }
+                logOffGUI(serverResponse);
                 SelectOptionScreen.super.setVisible(false);
                 SelectOptionScreen.super.dispose();
                 ConnectionScreen connectionScreen = new ConnectionScreen();
                 connectionScreen.setVisible(true);
             }
         });
+    }
+
+    private void downloadGUI(String response) {
+        if(response.equals("702: " + Protocol.DOWNLOAD_SUCCESS)) {
+            JOptionPane.showMessageDialog(null, "Download Successful",
+                    response, JOptionPane.INFORMATION_MESSAGE);
+        }else {
+            JOptionPane.showMessageDialog(null, "Download UnSuccessful",
+                    response, JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void logOffGUI(String response) {
+        if(response.equals("902: " + Protocol.LOGOFF_SUCCESS)) {
+            JOptionPane.showMessageDialog(null, SelectOptionScreen.super.getTitle() +
+                    " has been logged off", response, JOptionPane.INFORMATION_MESSAGE);
+        }else {
+            JOptionPane.showMessageDialog(null, "There was an error in logging off the user",
+                    response, JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

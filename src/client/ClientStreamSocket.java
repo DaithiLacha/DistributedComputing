@@ -29,8 +29,4 @@ class ClientStreamSocket {
         output.print(message + "\n");
         output.flush();
     }
-
-    void close() throws IOException {
-        socket.close();
-    }
 }

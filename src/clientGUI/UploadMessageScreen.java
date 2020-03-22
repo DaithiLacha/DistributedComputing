@@ -25,13 +25,9 @@ public class UploadMessageScreen extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                String serverResponse = Client.uploadMessageRequest(Protocol.UPLOAD, UploadMessageScreen.super.getTitle(), txtMessage.getText());
-                if(serverResponse.equals("802: " + Protocol.UPLOAD_SUCCESS)) {
-                    JOptionPane.showMessageDialog(null, "Message has been uploaded", serverResponse, JOptionPane.INFORMATION_MESSAGE);
-                }else {
-                    JOptionPane.showMessageDialog(null, "Message failed to upload", serverResponse, JOptionPane.ERROR_MESSAGE);
-                }
-                txtMessage.setText("");
+                String serverResponse = Client.uploadMessageRequest(Protocol.UPLOAD,
+                        UploadMessageScreen.super.getTitle(), txtMessage.getText());
+                uploadGUI(serverResponse);
             }
         });
         btnBack.addMouseListener(new MouseAdapter() {
@@ -45,5 +41,16 @@ public class UploadMessageScreen extends JFrame {
                 selectOptionScreen.setVisible(true);
             }
         });
+    }
+
+    private void uploadGUI(String response) {
+        if(response.equals("802: " + Protocol.UPLOAD_SUCCESS)) {
+            JOptionPane.showMessageDialog(null, "Message has been uploaded",
+                    response, JOptionPane.INFORMATION_MESSAGE);
+        }else {
+            JOptionPane.showMessageDialog(null, "Message failed to upload",
+                    response, JOptionPane.ERROR_MESSAGE);
+        }
+        txtMessage.setText("");
     }
 }
