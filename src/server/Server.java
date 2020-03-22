@@ -1,12 +1,7 @@
 package server;
 
-import client.Client;
-import java.io.*;
-
 import java.net.*;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * This module contains the application logic of an echo server
@@ -17,8 +12,8 @@ import java.util.Scanner;
  * @author M. L. Liu
  */
 
-public class Server {
-    public static ArrayList<String> loggedInUsers = new ArrayList<>();
+class Server {
+    static ArrayList<String> loggedInUsers = new ArrayList<>();
     void deployServer(){
         try {
             final int SERVER_PORT = 8055;

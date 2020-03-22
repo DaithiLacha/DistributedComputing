@@ -1,7 +1,5 @@
 package client;
 
-import server.Server;
-
 import java.io.*;
 import java.util.Scanner;
 
@@ -14,9 +12,9 @@ public class Client {
     private static final String TERMINATION_MESSAGE = "end";
     private InputStreamReader is = new InputStreamReader(System.in);
     private BufferedReader br = new BufferedReader(is);
-    public static ClientHelper clientHelper;
+    private static ClientHelper clientHelper;
 
-    public String setHostName(String host) {
+    private String setHostName(String host) {
         if(host.equals("")) {
             return "localhost";
         }else {
@@ -24,7 +22,7 @@ public class Client {
         }
     }
 
-    public String setPortNumber(String num) {
+    private String setPortNumber(String num) {
         if(num.equals("")) {
             return "8055";
         }else {
@@ -35,36 +33,6 @@ public class Client {
     public void runClient(String host, String port) {
         try {
             clientHelper = new ClientHelper(setHostName(host), setPortNumber(port));
-            boolean isTerminated = false;
-            boolean isLoggedIn = false;
-            String message, echo, username, password;
-            Scanner input = new Scanner(System.in);
-
-
-//            while (!isLoggedIn) {
-//                if (login(username, password)) {
-//                    isLoggedIn = true;
-//                } else {
-//                    System.out.println("Incorrect Login Details. Re-enter Username: ");
-//                    username = input.nextLine();
-//                    System.out.println("Enter Password: ");
-//                    password = input.nextLine();
-//                }
-//            }
-
-//            Server.createUser();
-
-//            while (!isTerminated) {
-//                System.out.println("Enter a line to receive an echo from the server. Type 'end' to quit.");
-//                message = br.readLine();
-//                if ((message.trim()).equals(TERMINATION_MESSAGE)) {
-//                    isTerminated = true;
-//                    helper.done();
-//                } else {
-//                    echo = helper.helperSendRequest(message);
-//                    System.out.println(echo);
-//                }
-//            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }

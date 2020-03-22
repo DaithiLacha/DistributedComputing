@@ -14,14 +14,14 @@ public class ClientHelper {
     private static final String TERMINATION_MESSAGE = "end";
     private static ClientStreamSocket mySocket;
 
-    public ClientHelper(String hostName, String portNum) throws IOException {
+    ClientHelper(String hostName, String portNum) throws IOException {
         InetAddress serverHost = InetAddress.getByName(hostName);
         int serverPort = Integer.parseInt(portNum);
         mySocket = new ClientStreamSocket(serverHost, serverPort);
         System.out.println("Connection request made");
     }
 
-    public String helperSendRequest(String message) throws IOException {
+    String helperSendRequest(String message) throws IOException {
         String response;
         mySocket.socketSendRequest(message);
         response = mySocket.ReceiveResponse();

@@ -19,7 +19,7 @@ public class CreateUserScreen extends JFrame {
     private JPanel panelMain;
 
 
-    public CreateUserScreen() {
+    CreateUserScreen() {
         super();
         this.setContentPane(this.panelMain);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,6 +54,14 @@ public class CreateUserScreen extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+            }
+        });
+        btnBack.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                CreateUserScreen.super.setVisible(false);
+
             }
         });
     }

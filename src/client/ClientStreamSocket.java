@@ -1,11 +1,8 @@
 package client;
 
-import server.Server;
-
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 
 class ClientStreamSocket {
     private Socket socket;

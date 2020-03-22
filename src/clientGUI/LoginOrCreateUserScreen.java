@@ -10,7 +10,7 @@ public class LoginOrCreateUserScreen extends JFrame {
     private JLabel lblChooseOption;
     private JPanel panelMain;
 
-    public LoginOrCreateUserScreen() {
+    LoginOrCreateUserScreen() {
         super();
         this.setContentPane(this.panelMain);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

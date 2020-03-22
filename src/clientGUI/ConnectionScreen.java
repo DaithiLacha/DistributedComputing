@@ -16,7 +16,7 @@ public class ConnectionScreen extends JFrame {
     private JLabel lblPortNo;
 
 
-    public ConnectionScreen() {
+    private ConnectionScreen() {
         super();
         this.setContentPane(this.panelMain);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -16,7 +16,7 @@ public class LoginScreen extends JFrame{
     private JButton btnSubmit;
     private JPanel panelMain;
 
-    public LoginScreen() {
+    LoginScreen() {
         super();
         this.setContentPane(this.panelMain);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -2,7 +2,6 @@ package clientGUI;
 
 import client.Client;
 import protocol.Protocol;
-import server.Server;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -14,9 +13,9 @@ public class UploadMessageScreen extends JFrame {
     private JButton btnUpload;
     private JButton btnBack;
     private JLabel lblMessage;
-    private JLabel lblUploadMEssage;
+    private JLabel lblUploadMessage;
 
-    public UploadMessageScreen() {
+    UploadMessageScreen() {
         super();
         this.setContentPane(this.panelMain);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

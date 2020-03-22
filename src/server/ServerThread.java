@@ -5,10 +5,7 @@ import protocol.Protocol;
 import javax.swing.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -19,7 +16,6 @@ import java.util.List;
  */
 
 public class ServerThread implements Runnable {
-    private static final String TERMINATION_MESSAGE = "end";
     private ServerStreamSocket myDataSocket;
 
     ServerThread(ServerStreamSocket myDataSocket) {
@@ -34,21 +30,13 @@ public class ServerThread implements Runnable {
                 message = myDataSocket.receiveRequest();
                 determineMessageType(message);
                 System.out.println("message received: " + message);
-//                if ((message.trim()).equals(TERMINATION_MESSAGE)) {
-//                    System.out.println("Session over.");
-//                    myDataSocket.close();
-//                    isSessionRunning = false;
-//                }
-//                else {
-//                    myDataSocket.sendResponse(message);
-//                }
             }
         } catch (Exception ex) {
             System.out.println("Exception caught in thread: " + ex);
         }
     }
 
-    public static boolean credentialsAreValid(String username, String password) {
+    private static boolean credentialsAreValid(String username, String password) {
         try (BufferedReader br = new BufferedReader(new FileReader("Users.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -147,6 +135,12 @@ public class ServerThread implements Runnable {
         if(file.exists()) {
             try {
                 myDataSocket.sendResponse("702: " + Protocol.DOWNLOAD_SUCCESS);
+                ProcessBuilder pb = new ProcessBuilder("Notepad.exe", "UserMessages/" + messageType.get(2) + ".txt");
+                try {
+                    pb.start();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
