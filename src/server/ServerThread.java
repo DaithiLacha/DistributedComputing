@@ -51,16 +51,33 @@ public class ServerThread implements Runnable {
         return false;
     }
 
+    private boolean isUserAlreadyLoggedIn(String username) {
+        if(Server.loggedInUsers.contains(username)) {
+            return true;
+        }
+        return false;
+    }
+
     private void loginServerSide(List<String> messageType) {
-        if(credentialsAreValid(messageType.get(2), messageType.get(3))) {
-            try {
-                myDataSocket.sendResponse("502: " + Protocol.LOGIN_SUCCESS);
-            } catch (IOException e) {
-                e.printStackTrace();
+        String username = messageType.get(2);
+        String password = messageType.get(3);
+        if(!isUserAlreadyLoggedIn(username)) {
+            if (credentialsAreValid(username, password)) {
+                try {
+                    myDataSocket.sendResponse("502: " + Protocol.LOGIN_SUCCESS);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    myDataSocket.sendResponse("503: " + Protocol.LOGIN_FAILURE);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }else {
             try {
-                myDataSocket.sendResponse("503: " + Protocol.LOGIN_FAILURE);
+                myDataSocket.sendResponse("504: " + Protocol.USER_ALREADY_LOGGED_IN);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -42,15 +42,20 @@ public class LoginScreen extends JFrame{
     private void loginResponseGUI(String response) {
         if(response.equals("502: " + Protocol.LOGIN_SUCCESS)) {
             JOptionPane.showMessageDialog(null, "Welcome: " + txtUsername.getText(),
-                    "502: " + Protocol.LOGIN_SUCCESS, JOptionPane.INFORMATION_MESSAGE);
+                    response, JOptionPane.INFORMATION_MESSAGE);
             SelectOptionScreen selectOptionScreen = new SelectOptionScreen();
             selectOptionScreen.setVisible(true);
             selectOptionScreen.setTitle(txtUsername.getText());
             LoginScreen.super.setVisible(false);
             LoginScreen.super.dispose();
-        }else {
+        }else if(response.equals("503: " + Protocol.LOGIN_SUCCESS)) {
             JOptionPane.showMessageDialog(null, "Invalid Details Entered",
-                    "503: " + Protocol.LOGIN_FAILURE, JOptionPane.ERROR_MESSAGE);
+                    response, JOptionPane.ERROR_MESSAGE);
+            txtUsername.setText("");
+            txtPassword.setText("");
+        }else {
+            JOptionPane.showMessageDialog(null, "You are already logged in",
+                    response, JOptionPane.ERROR_MESSAGE);
             txtUsername.setText("");
             txtPassword.setText("");
         }
