@@ -21,12 +21,12 @@ public class ServerStreamSocket extends Socket {
         output = new PrintWriter(new OutputStreamWriter(outStream));
     }
 
-    void sendMessage(String message) throws IOException {
+    void sendResponse(String message) throws IOException {
         output.print(message + "\n");
         output.flush();
     }
 
-    String receiveMessage() throws IOException {
+    String receiveRequest() throws IOException {
         return input.readLine();
     }
 

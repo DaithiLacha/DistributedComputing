@@ -18,7 +18,7 @@ import java.util.Scanner;
  */
 
 public class Server {
-    public static String loggedInUser = "";
+    public static ArrayList<String> loggedInUsers = new ArrayList<>();
     void deployServer(){
         try {
             final int SERVER_PORT = 8055;

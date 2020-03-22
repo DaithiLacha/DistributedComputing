@@ -1,5 +1,7 @@
 package clientGUI;
 
+import client.Client;
+import protocol.Protocol;
 import server.Server;
 
 import javax.swing.*;
@@ -28,7 +30,7 @@ public class SelectOptionScreen extends JFrame{
                 super.mouseClicked(e);
                 UploadMessageScreen uploadMessageScreen = new UploadMessageScreen();
                 uploadMessageScreen.setVisible(true);
-                SelectOptionScreen.super.setVisible(false);
+                uploadMessageScreen.setTitle(SelectOptionScreen.super.getTitle());
                 SelectOptionScreen.super.dispose();
             }
         });
@@ -37,11 +39,17 @@ public class SelectOptionScreen extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                ProcessBuilder pb = new ProcessBuilder("Notepad.exe", "UserMessages/" + Server.loggedInUser + ".txt");
-                try {
-                    pb.start();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
+                String serverResponse = Client.downloadMessages(Protocol.DOWNLOAD, SelectOptionScreen.super.getTitle());
+                if(serverResponse.equals("702: " + Protocol.DOWNLOAD_SUCCESS)) {
+                    JOptionPane.showMessageDialog(null, "Download Successful", serverResponse, JOptionPane.INFORMATION_MESSAGE);
+                    ProcessBuilder pb = new ProcessBuilder("Notepad.exe", "UserMessages/" + SelectOptionScreen.super.getTitle() + ".txt");
+                    try {
+                        pb.start();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }else {
+                    JOptionPane.showMessageDialog(null, "Download UnSuccessful", serverResponse, JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

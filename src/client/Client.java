@@ -93,4 +93,28 @@ public class Client {
         }
         return serverResponse;
     }
+
+    public static String downloadMessages(protocol.Protocol proto, String username) {
+        String clientRequest = "701;" + proto + ";" + username;
+        String serverResponse = "";
+
+        try {
+            serverResponse = clientHelper.helperSendRequest(clientRequest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return serverResponse;
+    }
+
+    public static String uploadMessage(protocol.Protocol proto, String username, String message) {
+        String clientRequest = "801;" + proto + ";" + username + ";" + message;
+        String serverResponse = "";
+
+        try {
+            serverResponse = clientHelper.helperSendRequest(clientRequest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return serverResponse;
+    }
 }

@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import static server.Server.loggedInUser;
 
 public class LoginScreen extends JFrame{
     private JPanel lblUserName;
@@ -37,9 +36,9 @@ public class LoginScreen extends JFrame{
                 if(response.equals("502: " + Protocol.LOGIN_SUCCESS)) {
                     JOptionPane.showMessageDialog(null, "Welcome: " + txtUsername.getText(),
                             "502: " + Protocol.LOGIN_SUCCESS, JOptionPane.INFORMATION_MESSAGE);
-                    loggedInUser = txtUsername.getText();
                     SelectOptionScreen selectOptionScreen = new SelectOptionScreen();
                     selectOptionScreen.setVisible(true);
+                    selectOptionScreen.setTitle(txtUsername.getText());
                     LoginScreen.super.setVisible(false);
                     LoginScreen.super.dispose();
                 }else {

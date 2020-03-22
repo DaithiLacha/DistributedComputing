@@ -24,22 +24,12 @@ class ClientStreamSocket {
         output = new PrintWriter(new OutputStreamWriter(outStream));
     }
 
-    String socketReceiveRequest() throws IOException {
+    String ReceiveResponse() throws IOException {
         return input.readLine();
     }
 
     void socketSendRequest(String message) throws IOException {
         output.print(message + "\n");
-//        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Server.loggedInUser + "/" + Server.loggedInUser + ".txt", true), StandardCharsets.UTF_8))) {
-//            bw.newLine();
-//            bw.append(message);
-//            bw.newLine();
-//            bw.append("=====================================================================================");
-//            bw.newLine();
-//        }catch (IOException e) {
-//            e.printStackTrace();
-//            System.exit(-1);
-//        }
         output.flush();
     }
 
