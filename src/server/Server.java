@@ -1,5 +1,6 @@
 package server;
 
+import javax.net.ssl.SSLServerSocketFactory;
 import java.net.*;
 import java.util.ArrayList;
 
@@ -17,7 +18,10 @@ class Server {
     void deployServer(){
         try {
             final int SERVER_PORT = 8055;
-            ServerSocket myConnectionSocket = new ServerSocket(SERVER_PORT);
+            System.setProperty("javax.net.ssl.keyStore", "za.store");
+            System.setProperty("javax.net.ssl.keyStorePassword", "password");
+            //ServerSocket myConnectionSocket = new ServerSocket(SERVER_PORT);
+            ServerSocket myConnectionSocket = ((SSLServerSocketFactory) SSLServerSocketFactory.getDefault()).createServerSocket(SERVER_PORT);
             System.out.println("Server ready.");
             while(true) {
                 System.out.println("Waiting for a connection.");
