@@ -3,6 +3,7 @@ package clientGUI;
 import javax.swing.*;
 import client.*;
 
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -21,6 +22,8 @@ public class ConnectionScreen extends JFrame {
         this.setContentPane(this.panelMain);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
 
         btnSubmit.addMouseListener(new MouseAdapter() {
             @Override
@@ -29,7 +32,6 @@ public class ConnectionScreen extends JFrame {
                 Client client = new Client();
                 client.runClient(txtHostName.getText(), txtPortNo.getText());
                 LoginOrCreateUserScreen gui = new LoginOrCreateUserScreen();
-                gui.setVisible(true);
                 ConnectionScreen.super.setVisible(false);
                 ConnectionScreen.super.dispose();
             }
@@ -38,7 +40,6 @@ public class ConnectionScreen extends JFrame {
 
     public static void main(String[] args) {
         ConnectionScreen connectionScreen = new ConnectionScreen();
-        connectionScreen.setVisible(true);
     }
 
 

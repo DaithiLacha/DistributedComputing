@@ -21,6 +21,8 @@ public class LoginScreen extends JFrame{
         this.setContentPane(this.panelMain);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
 
         btnSubmit.addMouseListener(new MouseAdapter() {
             @Override
@@ -44,7 +46,6 @@ public class LoginScreen extends JFrame{
             JOptionPane.showMessageDialog(null, "Welcome: " + txtUsername.getText(),
                     response, JOptionPane.INFORMATION_MESSAGE);
             SelectOptionScreen selectOptionScreen = new SelectOptionScreen();
-            selectOptionScreen.setVisible(true);
             selectOptionScreen.setTitle(txtUsername.getText());
             LoginScreen.super.setVisible(false);
             LoginScreen.super.dispose();

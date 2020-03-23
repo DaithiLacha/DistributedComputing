@@ -22,13 +22,14 @@ public class SelectOptionScreen extends JFrame{
         this.setContentPane(this.panelMain);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
 
         btnUpload.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 UploadMessageScreen uploadMessageScreen = new UploadMessageScreen();
-                uploadMessageScreen.setVisible(true);
                 uploadMessageScreen.setTitle(SelectOptionScreen.super.getTitle());
                 SelectOptionScreen.super.dispose();
             }
@@ -52,7 +53,6 @@ public class SelectOptionScreen extends JFrame{
                 SelectOptionScreen.super.setVisible(false);
                 SelectOptionScreen.super.dispose();
                 ConnectionScreen connectionScreen = new ConnectionScreen();
-                connectionScreen.setVisible(true);
             }
         });
     }

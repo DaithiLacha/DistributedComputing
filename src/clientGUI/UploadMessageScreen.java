@@ -20,6 +20,8 @@ public class UploadMessageScreen extends JFrame {
         this.setContentPane(this.panelMain);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
 
         btnUpload.addMouseListener(new MouseAdapter() {
             @Override
@@ -38,7 +40,6 @@ public class UploadMessageScreen extends JFrame {
                 UploadMessageScreen.super.dispose();
                 SelectOptionScreen selectOptionScreen = new SelectOptionScreen();
                 selectOptionScreen.setTitle(UploadMessageScreen.super.getTitle());
-                selectOptionScreen.setVisible(true);
             }
         });
     }
