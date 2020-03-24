@@ -18,8 +18,8 @@ class Server {
     void deployServer(){
         try {
             final int SERVER_PORT = 8055;
-            System.setProperty("javax.net.ssl.keyStore", "za.store");
-            System.setProperty("javax.net.ssl.keyStorePassword", "password");
+            System.setProperty("javax.net.ssl.keyStore", "ca.store");
+            System.setProperty("javax.net.ssl.keyStorePassword", "password123");
             //ServerSocket myConnectionSocket = new ServerSocket(SERVER_PORT);
             ServerSocket myConnectionSocket = ((SSLServerSocketFactory) SSLServerSocketFactory.getDefault()).createServerSocket(SERVER_PORT);
             System.out.println("Server ready.");

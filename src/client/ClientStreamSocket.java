@@ -11,7 +11,7 @@ class ClientStreamSocket {
     private PrintWriter output;
 
     ClientStreamSocket(InetAddress acceptorHost, int acceptorPort) throws IOException {
-        System.setProperty("javax.net.ssl.trustStore", "za.store");
+        System.setProperty("javax.net.ssl.trustStore", "ca.store");
         socket = ((SSLSocketFactory) SSLSocketFactory.getDefault()).createSocket(acceptorHost, acceptorPort);
         setStreams();
     }
